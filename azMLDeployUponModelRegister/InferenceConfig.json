@@ -1,0 +1,5 @@
+{
+    "entryScript": "./Inference/score.py",
+    "runtime": "python",
+    "condaFile": "./Inference/env.yml"
+}
