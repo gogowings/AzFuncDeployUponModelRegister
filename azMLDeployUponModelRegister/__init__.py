@@ -45,16 +45,9 @@ def main(event: func.EventGridEvent):
     model = Model(ws, id=model_id)
     logging.info('Model name = %s', model.name)
 
-    # deploy
-    env = Environment.from_conda_specification('aci-test-env', './Inference/env.yml')
-    registered_env = env.register(ws)
-
-    inference_config = InferenceConfig('./Inference/score.py', environment=registered_env)
-
-    aci_config = AciServiceDeploymentConfiguration(cpu_cores=1, memory_gb=2)
-
+    # perform no code deploy
     service_name = 'acitest-{}-{}'.format(event_data['modelName'], event_data['modelVersion'])
-    service = Model.deploy(ws, service_name, [model], inference_config, aci_config)
+    service = Model.deploy(ws, service_name, [model])
     logging.info('Deploying service %s to ACI', service.name)
 
     service.wait_for_deployment(True)

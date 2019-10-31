@@ -1,2 +1,2 @@
 azure-functions
-azureml-core==1.0.69
+azureml-core>=1.0.72
