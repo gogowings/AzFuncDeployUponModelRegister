@@ -19,9 +19,6 @@ func azure functionapp publish <APP_NAME> --build remote
     * TENANT_ID: the tenant ID of your service principal
     * SP_ID: the service principal ID
     * SP_PASSWORD: the service principal password
-    * SUBSCRIPTION_ID: your azure subscription ID
-    * RESOURCE_GROUP: the name of your resource group
-    * WORKSPACE_NAME: workspace name
 
 **TODO**: We should just parse subId/rgName/wsName from event grid payload, thus remove the need for the last 3 environment variables:
 

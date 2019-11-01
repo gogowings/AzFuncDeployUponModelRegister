@@ -25,12 +25,21 @@ def main(event: func.EventGridEvent):
         service_principal_id=os.getenv('SP_ID', ''),
         service_principal_password=os.getenv('SP_PASSWORD', ''))
     
+    # parse azure subscription ID, resource group name, and ML workspace name from event grid event topic
+    sub_tag="subscriptions"
+    rg_tag="resourceGroups"
+    ws_provider_tag="providers/Microsoft.MachineLearningServices/workspaces"
+
+    subscription_id = event.topic.split("{}/".format(sub_tag), 1)[1].split("/{}".format(rg_tag), 1)[0]
+    resource_group_name = event.topic.split("{}/".format(rg_tag), 1)[1].split("/{}".format(ws_provider_tag), 1)[0]
+    workspace_name = event.topic.split("{}/".format(ws_provider_tag), 1)[1].split("/", 1)[0]
+
     # get workspace
     ws = Workspace.get(
-        name=os.getenv('WORKSPACE_NAME', ''),
+        name=workspace_name,
         auth=sp_auth,
-        subscription_id=os.getenv('SUBSCRIPTION_ID', ''),
-        resource_group=os.getenv('RESOURCE_GROUP', ''))
+        subscription_id=subscription_id,
+        resource_group=resource_group_name)
 
     logging.info(
         'SubscriptionID = %s; ResourceGroup = %s; WorkSpace = %s; Location = %s',
