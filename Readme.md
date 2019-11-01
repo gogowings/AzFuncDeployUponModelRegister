@@ -33,7 +33,7 @@ You can configure your Function App triggering based on Event Grid events, and s
 
 Run following Azure Machine Learning CLI command.
 ```
-az ml model register -n ncd-sklearn-model -p .Model/sklearn_regression_model.pkl --model-framework ScikitLearn --cc 1 --gb 0.5 --tag ncd=true --tag stage=production -g <RESOURCE_GROUP_NAME> -w <WORKSPACE_NAME>
+az ml model register -n ncd-sklearn-model -p Model/sklearn_regression_model.pkl --model-framework ScikitLearn --cc 1 --gb 0.5 --tag ncd=true --tag stage=production -g <RESOURCE_GROUP_NAME> -w <WORKSPACE_NAME>
 ```
 
 That will raise a `Microsoft.MachineLearningServices.ModelRegistered` event from your Azure Machine Learning workspace. The event is published via Azure Event Grid to your Functions App, which performs a no code deployment for the model you just registered.
