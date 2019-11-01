@@ -45,15 +45,8 @@ def main(event: func.EventGridEvent):
     model = Model(ws, id=model_id)
     logging.info('Model name = %s', model.name)
 
-    # perform no code deploy
+    # perform no code deploy, in a fire-n-forget way, as we don't need to hold the Functions App resource and we will 
+    # respond to event grid request in time so that Event Grid won't timeout and retry.
     service_name = 'acitest-{}-{}'.format(event_data['modelName'], event_data['modelVersion'])
     service = Model.deploy(ws, service_name, [model])
-    logging.info('Deploying service %s to ACI', service.name)
-
-    service.wait_for_deployment(True)
-    logging.info('Deployment completed.')
-
-
-
-
-
+    logging.info('Start deploying service %s to ACI', service.name)
