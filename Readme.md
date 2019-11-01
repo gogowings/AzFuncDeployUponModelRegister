@@ -15,12 +15,14 @@ This sample repo showcases an event-driven way to perform Azure Machine Learning
 ```
 func azure functionapp publish <APP_NAME> --build remote
 ```
-3. go to Azure Portal, your Functions App, set following application settings: **TODO** add screenshoot
+3. go to Azure Portal, your Functions App, choose "Manage application settings".
+![Manage application settings](./Images/AzFunc_appSetting1.png)
+
+   Then set following application settings: 
     * TENANT_ID: the tenant ID of your service principal
     * SP_ID: the service principal ID
     * SP_PASSWORD: the service principal password
-
-**TODO**: We should just parse subId/rgName/wsName from event grid payload, thus remove the need for the last 3 environment variables:
+![Add application settings](./Images/AzFunc_appSetting2.png)
 
 ## Configure Event Grid Trigger
 
